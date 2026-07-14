@@ -1,0 +1,120 @@
+﻿ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhytoEco-Metrics</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2e7d32">
+    <!-- Chart.js CDN for standalone local plotting -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- MathJax CDN to render beautiful mathematical formulas (Converts $ signs automatically) -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>PhytoEco-Metrics</h1>
+        <span id="offline-badge" class="badge">Offline Ready</span>
+    </header>
+
+    <main>
+        <!-- SECTION 1: FIELD INPUT -->
+        <section class="card">
+            <h2>1. Field Community Sampling</h2>
+            <div class="input-row">
+                <input type="text" id="species-name" placeholder="Species Name (e.g., Aphid, Ladybird)">
+                <input type="number" id="species-count" placeholder="Count" min="1">
+                <button id="add-btn">Add to Sample</button>
+            </div>
+            
+            <table id="sample-table">
+                <thead>
+                    <tr>
+                        <th>Species</th>
+                        <th>Abundance (n)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic Rows -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SECTION 2: VISUAL DASHBOARD (Technician Mode) -->
+        <section class="card">
+            <h2>2. Agroecological Dashboard</h2>
+            <div class="dashboard-grid">
+                <div class="gauge-container">
+                    <div id="status-indicator" class="status-box status-neutral">
+                        <h3>Ecosystem Status</h3>
+                        <p id="status-text">No data recorded yet. Please add sample entries in the fields above.</p>
+                    </div>
+                </div>
+                <div class="chart-box">
+                    <canvas id="rankAbundanceChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+       <!-- SECTION 3: ACADEMIC CORNER (Doctorant / Researcher Mode) -->
+        <section class="card academic-section">
+            <details>
+                <summary>📊 View Mathematical Formulations & Raw Indices</summary>
+                <div class="academic-content">
+                    
+                    <div class="index-box">
+                        <h3>Alpha (<i>α</i>) Diversity & Richness</h3>
+                        <ul>
+                            <li><strong>Species Richness (<i>S</i>):</strong> <span id="calc-s">0</span> <br><small>Formula: Total number of observed species.</small></li>
+                            <li><strong>Margalef's Richness (<i>d</i>):</strong> <span id="calc-margalef">0.00</span> <br><small>Formula: $$d = \frac{S - 1}{\ln(N)}$$</small></li>
+                        </ul>
+                    </div>
+
+                    <div class="index-box">
+                        <h3>Shannon Entropy & True Diversity</h3>
+                        <ul>
+                            <li><strong>Shannon Entropy (<i>H' nat</i>):</strong> <span id="calc-h">0.000</span> <br><small>Formula: $$H' = -\sum p_i \ln(p_i)$$</small></li>
+                            <li><strong>Shannon Equitability (<i>J'</i>):</strong> <span id="calc-j">0.00%</span> <br><small>Formula: $$J' = \frac{H'}{\ln(S)}$$</small></li>
+                            <li><strong>True Diversity (<i><sup>1</sup>D</i>):</strong> <span id="calc-true-div">0.0</span> <br><small>Formula: $$^{1}D = \exp(H')$$ (Effective number of equally abundant species)</small></li>
+                        </ul>
+                    </div>
+
+                    <div class="index-box">
+                        <h3>Simpson Dominance & Evenness</h3>
+                        <ul>
+                            <li><strong>Simpson Dominance (<i>D</i>):</strong> <span id="calc-simp-dom">0.00%</span> <br><small>Formula: $$D = \sum p_i^2$$</small></li>
+                            <li><strong>Gini-Simpson Index (<i>1 - D</i>):</strong> <span id="calc-gini">0.00%</span> <br><small>Formula: $$GSI = 1 - \sum p_i^2$$ (Probability of interspecific encounter)</small></li>
+                            <li><strong>Berger-Parker Dominance (<i>d_BP</i>):</strong> <span id="calc-berger">0.00%</span> <br><small>Formula: $$d_{BP} = \frac{N_{max}}{N}$$</small></li>
+                        </ul>
+                    </div>
+
+                    <div class="index-box">
+                        <h3>Beta (<i>β</i>) Reference Comparison</h3>
+                        <p><small>Compares current sample against a baseline monoculture control.</small></p>
+                        <ul>
+                            <li><strong>Jaccard Similarity Coefficient:</strong> <span id="calc-jaccard">0.00%</span> <br><small>Formula: $$C_j = \frac{a}{a + b + c}$$</small></li>
+                            <li><strong>Bray-Curtis Dissimilarity:</strong> <span id="calc-bray">0.00</span> <br><small>Formula: $$BC = \frac{\sum |n_{ki} - n_{kj}|}{\sum (n_{ki} + n_{kj})}$$</small></li>
+                        </ul>
+                    </div>
+
+                    <button id="export-btn">Export Complete Report to CSV (R-Ready)</button>
+                </div>
+            </details>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered successfully.', reg))
+                    .catch(err => console.error('Service Worker registration failed.', err));
+            });
+        }
+    </script>
+</body>
+</html>

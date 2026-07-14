@@ -1,0 +1,139 @@
+﻿:root {
+    --primary-color: #2e7d32;
+    --primary-light: #4caf50;
+    --background: #f5f5f5;
+    --surface: #ffffff;
+    --text: #333333;
+    --accent: #e65100;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 { margin: 0; font-size: 1.4rem; }
+
+.badge {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+main { padding: 15px; max-width: 800px; margin: 0 auto; }
+
+.card {
+    background: var(--surface);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+h2 { font-size: 1.1rem; color: var(--primary-color); margin-top: 0; }
+
+.input-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover { background-color: var(--primary-light); }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th { background-color: #fafafa; font-size: 0.85rem; color: #666; }
+
+.dashboard-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.status-box {
+    padding: 15px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.status-neutral { background-color: #e0e0e0; color: #424242; }
+.status-good { background-color: #c8e6c9; color: #1b5e20; }
+.status-warning { background-color: #ffcc80; color: #e65100; }
+.status-danger { background-color: #ffcdd2; color: #b71c1c; }
+
+.academic-section summary {
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    padding: 5px 0;
+}
+
+.academic-content {
+    margin-top: 15px;
+    border-top: 1px dashed #ccc;
+    padding-top: 15px;
+}
+
+.index-box {
+    background: #fafinter;
+    background-color: #fafafa;
+    padding: 12px;
+    border-left: 4px solid var(--primary-color);
+    margin-bottom: 15px;
+    border-radius: 0 4px 4px 0;
+}
+
+.index-box h3 { margin: 0 0 8px 0; font-size: 0.95rem; }
+.index-box ul { margin: 0; padding-left: 20px; }
+.index-box li { margin-bottom: 8px; font-size: 0.9rem; }
+
+#export-btn {
+    width: 100%;
+    background-color: #37474f;
+}
+
+@media(min-width: 600px) {
+    .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; }
+}
