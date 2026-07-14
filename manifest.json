@@ -1,12 +1,15 @@
 {
+  "id": "/PhytoEco/",
   "short_name": "PhytoEco",
   "name": "PhytoEco-Metrics Suite",
+  "description": "Calcul instantané d'indices de diversité écologique (Shannon, Simpson, Margalef...) à partir de relevés d'espèces de terrain.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#f5f5f5",
   "theme_color": "#2e7d32",
+  "categories": ["science", "productivity", "education"],
   "icons": [
     {
       "src": "icons/icon-192.png",
