@@ -1,10 +1,7 @@
-﻿// ==========================================
+// ==========================================
 // 1. GLOBAL DATASETS & BASELINES
 // ==========================================
 let sampleData = {};
-
-// Hardcoded Baseline Comparison Group (Simulating a standard highly simplified agricultural monoculture system)
-const controlBaseline = { "Dominant_Taxon": 150, "Secondary_Taxon": 45 };
 
 // Metrics global variables
 let currentS = 0;
@@ -124,9 +121,17 @@ function updateUI() {
     currentBerger = (N > 0) ? maxAbundance / N : 0;
     document.getElementById('calc-berger').innerText = (currentBerger * 100).toFixed(1) + '%';
 
-    // --- BETA DIVERSITY CALCULATIONS (vs controlBaseline) ---
+    // --- BETA DIVERSITY CALCULATIONS (vs Dynamic Baseline Control) ---
     const sampleSpecies = Object.keys(sampleData);
-    const baselineSpecies = Object.keys(controlBaseline);
+    
+    // Génération automatique d'une baseline virtuelle représentant une monoculture
+    // stricte de l'espèce ultra-dominante capturée dans l'échantillon de terrain.
+    let dynamicBaseline = {};
+    if (sampleSpecies.length > 0) {
+        const mainSpecies = Object.keys(sampleData).reduce((a, b) => sampleData[a] > sampleData[b] ? a : b);
+        dynamicBaseline[mainSpecies] = N; // Niveaux standardisés sur la taille totale N de l'échantillon
+    }
+    const baselineSpecies = Object.keys(dynamicBaseline);
     
     // Jaccard Similarity Coefficient
     const intersection = sampleSpecies.filter(s => baselineSpecies.includes(s));
@@ -139,7 +144,7 @@ function updateUI() {
     let totalSum = 0;
     for (const sp of union) {
         const countS = sampleData[sp] || 0;
-        const countB = controlBaseline[sp] || 0;
+        const countB = dynamicBaseline[sp] || 0;
         diffSum += Math.abs(countS - countB);
         totalSum += (countS + countB);
     }
