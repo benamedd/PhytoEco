@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'phytoeco-v1';
+﻿const CACHE_NAME = 'phytoeco-v2';
 const ASSETS = [
     './',
     './index.html',
